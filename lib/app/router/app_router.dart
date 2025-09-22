@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:medical_city/features/auth/presentation/auth/auth.dart';
+import 'package:medical_city/features/auth/presentation/intro/intro_screen.dart';
 
 import '../../features/redirect/redirect_screen.dart';
 import 'navigation_routes.dart';
@@ -10,24 +12,24 @@ final appRouter = GoRouter(
       path: NavigationRoutes.redirect,
       builder: (context, state) => RedirectScreen(),
     ),
-    // GoRoute(
-    //   path: NavigationRoutes.intro,
-    //   builder: (context, state) => IntroScreen(),
-    // ),
+    GoRoute(
+      path: NavigationRoutes.intro,
+      builder: (context, state) => IntroScreen(),
+    ),
 
-    // GoRoute(
-    //   path: NavigationRoutes.signup,
-    //   builder: (context, state) => SignUpScreen(),
-    // ),
+    GoRoute(
+      path: NavigationRoutes.signup,
+      builder: (context, state) => SignUpScreen(),
+    ),
 
-    // GoRoute(
-    //   path: NavigationRoutes.login,
-    //   builder: (context, state) => LogInScreen(),
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.restPassword,
-    //   builder: (context, state) => ResetPasswordScreen(),
-    // ),
+    GoRoute(
+      path: NavigationRoutes.login,
+      builder: (context, state) => LogInScreen(),
+    ),
+    GoRoute(
+      path: NavigationRoutes.restPassword,
+      builder: (context, state) => ResetPasswordScreen(),
+    ),
     // GoRoute(
     //   path: '/phone-auth',
     //   builder: (context, state) => const PhoneAuthScreen(),
