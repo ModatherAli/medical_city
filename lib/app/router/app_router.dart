@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:medical_city/features/auth/presentation/auth/auth.dart';
 import 'package:medical_city/features/auth/presentation/intro/intro_screen.dart';
+import 'package:medical_city/features/main/presentation/main_screen.dart';
 
 import '../../features/redirect/redirect_screen.dart';
 import 'navigation_routes.dart';
@@ -30,14 +31,11 @@ final appRouter = GoRouter(
       path: NavigationRoutes.restPassword,
       builder: (context, state) => ResetPasswordScreen(),
     ),
-    // GoRoute(
-    //   path: '/phone-auth',
-    //   builder: (context, state) => const PhoneAuthScreen(),
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.main,
-    //   builder: (context, state) => MainScreen(),
-    // ),
+
+    GoRoute(
+      path: NavigationRoutes.main,
+      builder: (context, state) => MainScreen(),
+    ),
     // GoRoute(
     //   path: NavigationRoutes.subscription,
     //   builder: (context, state) => SubscriptionScreen(),

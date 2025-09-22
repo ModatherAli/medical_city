@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../shared/widgets/language_selection_dialog.dart';
 import 'widgets/app_description.dart';
 import 'widgets/background_image.dart';
 import 'widgets/start_auth_button.dart';
@@ -11,13 +10,13 @@ class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => showLanguageSelection(context),
-          icon: Icon(Icons.translate),
-        ),
-        backgroundColor: Colors.transparent,
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     onPressed: () => showLanguageSelection(context),
+      //     icon: Icon(Icons.translate),
+      //   ),
+      //   backgroundColor: Colors.transparent,
+      // ),
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [

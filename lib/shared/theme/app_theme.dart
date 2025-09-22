@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import '../res/app_colors.dart';
 
 import '../../core/constants/constants.dart';
 
 ThemeData lightTheme = ThemeData(
-  colorScheme: ColorScheme.fromSeed(seedColor: kNeonGreen),
+  colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
   useMaterial3: true,
   fontFamily: 'Rubik',
   appBarTheme: const AppBarTheme(centerTitle: true),

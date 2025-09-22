@@ -21,7 +21,7 @@ class Constants {
 
   static const String appStoreUrl = '';
 
-  static const MaterialColor primaryColor = Colors.green;
+  static const MaterialColor primaryColor = Colors.blue;
   static const Color darkColor = Color(0xFF1d3557);
   static const Color primaryDarkColor = Color(0xFF0d1b2a);
   static const Color goldColor = Color(0xFFFFD700); // Define golden color
