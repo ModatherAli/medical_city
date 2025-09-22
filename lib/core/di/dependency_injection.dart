@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_it/get_it.dart';
+
+import '../../firebase_options.dart';
 
 final getIt = GetIt.instance;
 
@@ -24,8 +27,8 @@ Future<void> configureDependencies() async {
     ..errorWidget = const Icon(Icons.error_outline, color: Colors.red, size: 40)
     ..dismissOnTap = false;
 
-  // // Firebase initialization
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // Firebase initialization
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // // User dependencies
   // getIt.registerSingleton<UserRemoteDatasource>(UserRemoteDatasource());

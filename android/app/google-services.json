@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "458453032226",
+    "project_id": "medical-city-app",
+    "storage_bucket": "medical-city-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458453032226:android:34eb7bf70b66e3dc79997b",
+        "android_client_info": {
+          "package_name": "modatherali.com.medical_city"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWqM7QMGeIVsIklMW3PvG_ur4fTVakNz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

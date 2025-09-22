@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import '../../features/redirect/redirect_screen.dart';
 import 'navigation_routes.dart';
 
 final appRouter = GoRouter(

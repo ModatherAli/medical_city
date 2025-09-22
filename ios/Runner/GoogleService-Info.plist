@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBNu4cczj1iF8_FC6SU4KXab75F2IjvTSw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>458453032226</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>modatherali.com.medicalCity</string>
+	<key>PROJECT_ID</key>
+	<string>medical-city-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>medical-city-app.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:458453032226:ios:eb3c939a8dd6fe7379997b</string>
+</dict>
+</plist>
