@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medical_city/features/auth/presentation/auth/widgets/other_auth_icon_buttons.dart';
 
 import '../../../../app/router/navigation_routes.dart';
 import '../../../../shared/validators/form_validators.dart';
@@ -32,6 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _confirmPassword = TextEditingController();
 
   final TextEditingController _fullName = TextEditingController();
+  final TextEditingController _date = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +103,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
+
+                BeautyTextField(
+                  fieldName: 'Mobile number',
+                  // controller: _fullName,
+                  validator: phoneNumberValidator,
+                ),
+                InkWell(
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now(),
+                    );
+                    if (pickedDate != null) {
+                      setState(() {
+                        _date.text = "${pickedDate.toLocal()}".split(' ')[0];
+                      });
+                    }
+                  },
+                  child: BeautyTextField(
+                    fieldName: 'Date of birth',
+                    enabled: false,
+                    controller: _date,
+
+                    // validator: minLengthValidator(4),
+                  ),
+                ),
                 const SizedBox(height: 15),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -128,22 +158,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 const SizedBox(height: 20),
 
-                // Or divider
-                Row(
-                  children: [
-                    const Expanded(child: Divider()),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        'Or sign up with'.tr,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                    const Expanded(child: Divider()),
-                  ],
-                ),
-
-                const SizedBox(height: 20),
+                OtherAuthIconButtons(),
+                const SizedBox(height: 50),
               ],
             ),
           ),

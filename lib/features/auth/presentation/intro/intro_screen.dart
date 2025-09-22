@@ -22,16 +22,19 @@ class IntroScreen extends StatelessWidget {
       body: Stack(
         children: [
           BackgroundImage(),
-          ListView(
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            // crossAxisAlignment: CrossAxisAlignment.end,
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const SizedBox(height: 100),
-              AppDescription(),
-              const SizedBox(height: 15),
-              StartAuthButton(),
-            ],
+            child: Column(
+              // padding: const EdgeInsets.symmetric(horizontal: 16),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // const SizedBox(height: 100),
+                AppDescription(),
+                const SizedBox(height: 15),
+                StartAuthButton(),
+              ],
+            ),
           ),
         ],
       ),

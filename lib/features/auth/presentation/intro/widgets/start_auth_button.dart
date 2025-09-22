@@ -18,7 +18,7 @@ class StartAuthButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Accept'.tr, style: TextStyle(fontSize: 18)),
+          Text('Start'.tr, style: TextStyle(fontSize: 18)),
           const SizedBox(width: 8),
           Icon(Icons.arrow_forward_ios, size: 24),
         ],

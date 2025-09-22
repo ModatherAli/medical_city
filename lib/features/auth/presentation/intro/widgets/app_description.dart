@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/get_utils.dart';
 
 import '../../../../../shared/widgets/app_icon_widget.dart';
 
@@ -26,10 +25,11 @@ class AppDescription extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AppIconWidget(size: 150),
+          const SizedBox(height: 16),
           Text(
-            'Disclaimer'.tr,
-            // textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16),
+            'Wellcome to Medical City app',
+            maxLines: 1,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
         ],

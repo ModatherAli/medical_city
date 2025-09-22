@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medical_city/features/auth/presentation/auth/widgets/other_auth_icon_buttons.dart';
 
 import '../../../../app/router/navigation_routes.dart';
 import '../../../../shared/validators/form_validators.dart';
@@ -104,20 +105,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
                 const SizedBox(height: 20),
 
-                // Or divider
-                Row(
-                  children: [
-                    const Expanded(child: Divider()),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        'Or sign in with'.tr,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                    const Expanded(child: Divider()),
-                  ],
-                ),
+                OtherAuthIconButtons(),
 
                 const SizedBox(height: 20),
               ],
