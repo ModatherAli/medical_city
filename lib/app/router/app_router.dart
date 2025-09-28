@@ -1,13 +1,14 @@
 import 'package:go_router/go_router.dart';
-import 'package:medical_city/screens/intro_screen.dart';
-import 'package:medical_city/screens/login_screen.dart';
-import 'package:medical_city/screens/main_screen.dart';
-import 'package:medical_city/screens/phone_verification_screen.dart';
-import 'package:medical_city/screens/profile_screen.dart';
-import 'package:medical_city/screens/reset_password_screen.dart';
-import 'package:medical_city/screens/settings_screen.dart';
-import 'package:medical_city/screens/signup_screen.dart';
-import 'package:medical_city/screens/redirect_screen.dart';
+import 'package:medical_city/screens/auth/intro_screen.dart';
+import 'package:medical_city/screens/auth/login_screen.dart';
+import 'package:medical_city/screens/auth/phone_verification_screen.dart';
+import 'package:medical_city/screens/auth/signup_screen.dart';
+import 'package:medical_city/screens/main/main_screen.dart';
+import 'package:medical_city/screens/main/redirect_screen.dart';
+import 'package:medical_city/screens/profile/profile_screen.dart';
+import 'package:medical_city/screens/profile/reset_password_screen.dart';
+import 'package:medical_city/screens/profile/settings_screen.dart';
+
 import 'navigation_routes.dart';
 
 final appRouter = GoRouter(
