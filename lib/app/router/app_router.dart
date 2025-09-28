@@ -1,11 +1,13 @@
 import 'package:go_router/go_router.dart';
-import 'package:medical_city/features/auth/presentation/auth/auth.dart';
-import 'package:medical_city/features/auth/presentation/intro/intro_screen.dart';
-import 'package:medical_city/features/main/presentation/main_screen.dart';
-import 'package:medical_city/features/profile/presentation/screens/profile_screen.dart';
-import 'package:medical_city/features/profile/presentation/screens/settings_screen.dart';
-
-import '../../features/redirect/redirect_screen.dart';
+import 'package:medical_city/screens/intro_screen.dart';
+import 'package:medical_city/screens/login_screen.dart';
+import 'package:medical_city/screens/main_screen.dart';
+import 'package:medical_city/screens/phone_verification_screen.dart';
+import 'package:medical_city/screens/profile_screen.dart';
+import 'package:medical_city/screens/reset_password_screen.dart';
+import 'package:medical_city/screens/settings_screen.dart';
+import 'package:medical_city/screens/signup_screen.dart';
+import 'package:medical_city/screens/redirect_screen.dart';
 import 'navigation_routes.dart';
 
 final appRouter = GoRouter(
@@ -19,15 +21,13 @@ final appRouter = GoRouter(
       path: NavigationRoutes.intro,
       builder: (context, state) => IntroScreen(),
     ),
-
     GoRoute(
       path: NavigationRoutes.signup,
-      builder: (context, state) => SignUpScreen(),
+      builder: (context, state) => const SignUpScreen(),
     ),
-
     GoRoute(
       path: NavigationRoutes.login,
-      builder: (context, state) => LogInScreen(),
+      builder: (context, state) => const LogInScreen(),
     ),
     GoRoute(
       path: NavigationRoutes.restPassword,
@@ -45,10 +45,9 @@ final appRouter = GoRouter(
         );
       },
     ),
-
     GoRoute(
       path: NavigationRoutes.main,
-      builder: (context, state) => MainScreen(),
+      builder: (context, state) => const MainScreen(),
     ),
     GoRoute(
       path: NavigationRoutes.profile,
@@ -58,62 +57,5 @@ final appRouter = GoRouter(
       path: NavigationRoutes.settings,
       builder: (context, state) => const SettingsScreen(),
     ),
-    // GoRoute(
-    //   path: NavigationRoutes.subscription,
-    //   builder: (context, state) => SubscriptionScreen(),
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.editAccount,
-    //   builder: (context, state) => EditAccountScreen(),
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.addStock,
-    //   builder: (context, state) => const AddUpdateStockScreen(),
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.editStock,
-    //   builder: (context, state) {
-    //     final stock = state.extra as Stock?;
-    //     return AddUpdateStockScreen(stock: stock);
-    //   },
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.options,
-    //   builder: (context, state) => const OptionsScreen(),
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.addOption,
-    //   builder: (context, state) => const AddUpdateOptionScreen(),
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.editOption,
-    //   builder: (context, state) {
-    //     final option = state.extra as OptionRecommendation?;
-    //     return AddUpdateOptionScreen(option: option);
-    //   },
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.archive,
-    //   builder: (context, state) => const ArchiveScreen(),
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.chat,
-    //   builder: (context, state) => const ChatScreen(),
-    // ),
-    // GoRoute(
-    //   path: '/chat/:conversationId',
-    //   builder: (context, state) {
-    //     final conversationId = state.pathParameters['conversationId'];
-    //     return ChatScreen(conversationId: conversationId);
-    //   },
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.conversations,
-    //   builder: (context, state) => const ConversationsScreen(),
-    // ),
-    // GoRoute(
-    //   path: NavigationRoutes.notifications,
-    //   builder: (context, state) => const NotificationsScreen(),
-    // ),
   ],
 );
