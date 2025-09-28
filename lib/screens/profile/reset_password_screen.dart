@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medical_city/app/router/navigation_routes.dart';
 import 'package:medical_city/controllers/auth_controller.dart';
+import 'package:medical_city/screens/widgets/beauty_text_field.dart';
 import 'package:medical_city/shared/validators/form_validators.dart';
-import 'package:medical_city/shared/widgets/beauty_text_field.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key});
@@ -31,16 +31,15 @@ class ResetPasswordScreen extends StatelessWidget {
               textInputType: TextInputType.emailAddress,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 50,
-                vertical: 20,
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+              child: Obx(
+                () => _authController.isLoading.value
+                    ? const Center(child: CircularProgressIndicator())
+                    : OutlinedButton(
+                        onPressed: () => _onRestPassword(context),
+                        child: Text('Password reset request'.tr),
+                      ),
               ),
-              child: Obx(() => _authController.isLoading.value
-                  ? const Center(child: CircularProgressIndicator())
-                  : OutlinedButton(
-                      onPressed: () => _onRestPassword(context),
-                      child: Text('Password reset request'.tr),
-                    )),
             ),
           ],
         ),

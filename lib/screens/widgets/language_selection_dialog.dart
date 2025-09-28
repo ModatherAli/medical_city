@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../core/services/language_service.dart';
+
+import '../../../../services/language_service.dart';
 
 class LanguageSelectionDialog extends StatelessWidget {
   const LanguageSelectionDialog({super.key});

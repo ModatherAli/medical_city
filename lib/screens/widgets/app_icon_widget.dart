@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../res/images_paths.dart';
+import '../../shared/res/images_paths.dart';
 
 class AppIconWidget extends StatelessWidget {
   final double size;

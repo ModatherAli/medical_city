@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../shared/widgets/app_icon_widget.dart';
+import '../../widgets/app_icon_widget.dart';
 
 class AppDescription extends StatelessWidget {
   const AppDescription({super.key});
