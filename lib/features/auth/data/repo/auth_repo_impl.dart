@@ -70,4 +70,28 @@ class AuthRepositoryImpl implements AuthRepository {
       (response) => Right(response),
     );
   }
+
+  @override
+  Future<Either<Failure, String>> verifyPhoneNumber(String phoneNumber) async {
+    final result = await authRemoteDatasource.verifyPhoneNumber(phoneNumber);
+    return result.fold(
+      (failure) => Left(failure),
+      (response) => Right(response),
+    );
+  }
+
+  @override
+  Future<Either<Failure, AuthModel>> verifyPhoneCode(
+    String verificationId,
+    String smsCode,
+  ) async {
+    final result = await authRemoteDatasource.verifyPhoneCode(
+      verificationId,
+      smsCode,
+    );
+    return result.fold(
+      (failure) => Left(failure),
+      (response) => Right(response),
+    );
+  }
 }

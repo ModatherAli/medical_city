@@ -19,4 +19,11 @@ abstract class AuthRepository {
 
   Future<Either<Failure, bool>> resetPassword(String email);
   Future<Either<Failure, void>> logout();
+
+  // Phone verification methods
+  Future<Either<Failure, String>> verifyPhoneNumber(String phoneNumber);
+  Future<Either<Failure, AuthModel>> verifyPhoneCode(
+    String verificationId,
+    String smsCode,
+  );
 }

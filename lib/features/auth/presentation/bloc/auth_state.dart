@@ -44,3 +44,13 @@ class AuthPhoneCodeSent extends AuthState {
   @override
   List<Object?> get props => [verificationId, phoneNumber];
 }
+
+class AuthPhoneVerificationNeeded extends AuthState {
+  final AuthModel authModel;
+  final String phoneNumber;
+
+  const AuthPhoneVerificationNeeded(this.authModel, this.phoneNumber);
+
+  @override
+  List<Object?> get props => [authModel, phoneNumber];
+}

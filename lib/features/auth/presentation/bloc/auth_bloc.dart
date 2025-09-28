@@ -9,6 +9,9 @@ import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
+  // Store phone number for verification after signup
+  // final String _pendingPhoneNumber = '';
+
   AuthBloc({required this.authRepository}) : super(AuthInitial()) {
     on<AuthCheckRequested>(_onAuthCheckRequested);
     on<AuthSignUpRequested>(_onSignUpRequested);
@@ -16,6 +19,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthResetPasswordRequested>(_onResetPasswordRequested);
     on<AuthLogoutRequested>(_onLogoutRequested);
     on<AuthRest>(_onAuthRest);
+    on<AuthVerifyPhoneNumberRequested>(_onVerifyPhoneNumberRequested);
+    on<AuthVerifyPhoneCodeRequested>(_onVerifyPhoneCodeRequested);
   }
 
   Future<void> _onAuthCheckRequested(
@@ -88,6 +93,36 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await authRepository.logout();
 
     emit(AuthLoggedOut());
+  }
+
+  Future<void> _onVerifyPhoneNumberRequested(
+    AuthVerifyPhoneNumberRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    final result = await authRepository.verifyPhoneNumber(event.phoneNumber);
+
+    result.fold(
+      (failure) => emit(AuthError(failure.message)),
+      (verificationId) =>
+          emit(AuthPhoneCodeSent(verificationId, event.phoneNumber)),
+    );
+  }
+
+  Future<void> _onVerifyPhoneCodeRequested(
+    AuthVerifyPhoneCodeRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    final result = await authRepository.verifyPhoneCode(
+      event.verificationId,
+      event.smsCode,
+    );
+
+    result.fold(
+      (failure) => emit(AuthError(failure.message)),
+      (authModel) => emit(AuthAuthenticated(authModel)),
+    );
   }
 
   FutureOr<void> _onAuthRest(AuthRest event, Emitter<AuthState> emit) {

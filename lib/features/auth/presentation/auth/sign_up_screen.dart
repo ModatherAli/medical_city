@@ -33,19 +33,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _confirmPassword = TextEditingController();
 
   final TextEditingController _fullName = TextEditingController();
+
+  final TextEditingController _phoneNumber = TextEditingController();
+
   final TextEditingController _date = TextEditingController();
+
+  bool _isSigningUp = false;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-      builder: (context, state) {
-        if (state is AuthAuthenticated) {
-          // call the navigation on successful login to navigate to main screen
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            context.go(NavigationRoutes.redirect);
-          });
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        // Listen for state changes to trigger phone verification
+        if (state is AuthAuthenticated && _isSigningUp) {
+          // After successful signup, trigger phone verification
+          _isSigningUp = false;
+          if (_phoneNumber.text.isNotEmpty) {
+            context.read<AuthBloc>().add(
+              AuthVerifyPhoneNumberRequested(_phoneNumber.text.trim()),
+            );
+          } else {
+            // If no phone number provided, navigate to main screen
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              context.go(NavigationRoutes.redirect);
+            });
+          }
         }
 
+        if (state is AuthPhoneCodeSent) {
+          // Navigate to phone verification screen
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.push(
+              '${NavigationRoutes.phoneVerification}?phoneNumber=${state.phoneNumber}&verificationId=${state.verificationId}',
+            );
+          });
+        }
+      },
+      builder: (context, state) {
         return Scaffold(
           appBar: AppBar(),
           body: Form(
@@ -72,6 +96,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   validator: emailValidator,
                   textDirection: TextDirection.ltr,
                   textInputType: TextInputType.emailAddress,
+                ),
+                BeautyTextField(
+                  fieldName: 'Phone Number',
+                  controller: _phoneNumber,
+                  validator: phoneNumberValidator,
+                  textDirection: TextDirection.ltr,
+                  textInputType: TextInputType.phone,
                 ),
                 BeautyTextField(
                   fieldName: 'Password',
@@ -103,12 +134,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-
-                BeautyTextField(
-                  fieldName: 'Mobile number',
-                  // controller: _fullName,
-                  validator: phoneNumberValidator,
-                ),
                 InkWell(
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
@@ -127,8 +152,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fieldName: 'Date of birth',
                     enabled: false,
                     controller: _date,
-
-                    // validator: minLengthValidator(4),
                   ),
                 ),
                 const SizedBox(height: 15),
@@ -172,6 +195,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
+    _isSigningUp = true;
+    // Sign up the user with email and password
     context.read<AuthBloc>().add(
       AuthSignUpRequested(_email.text.trim(), _password.text, _fullName.text),
     );

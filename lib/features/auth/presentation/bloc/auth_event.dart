@@ -41,6 +41,25 @@ class AuthResetPasswordRequested extends AuthEvent {
   List<Object?> get props => [email];
 }
 
+class AuthVerifyPhoneNumberRequested extends AuthEvent {
+  final String phoneNumber;
+
+  const AuthVerifyPhoneNumberRequested(this.phoneNumber);
+
+  @override
+  List<Object?> get props => [phoneNumber];
+}
+
+class AuthVerifyPhoneCodeRequested extends AuthEvent {
+  final String verificationId;
+  final String smsCode;
+
+  const AuthVerifyPhoneCodeRequested(this.verificationId, this.smsCode);
+
+  @override
+  List<Object?> get props => [verificationId, smsCode];
+}
+
 class AuthRest extends AuthEvent {
   const AuthRest();
 

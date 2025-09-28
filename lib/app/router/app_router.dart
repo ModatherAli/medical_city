@@ -31,6 +31,18 @@ final appRouter = GoRouter(
       path: NavigationRoutes.restPassword,
       builder: (context, state) => ResetPasswordScreen(),
     ),
+    GoRoute(
+      path: NavigationRoutes.phoneVerification,
+      builder: (context, state) {
+        final phoneNumber = state.uri.queryParameters['phoneNumber'] ?? '';
+        final verificationId =
+            state.uri.queryParameters['verificationId'] ?? '';
+        return PhoneVerificationScreen(
+          phoneNumber: phoneNumber,
+          verificationId: verificationId,
+        );
+      },
+    ),
 
     GoRoute(
       path: NavigationRoutes.main,
