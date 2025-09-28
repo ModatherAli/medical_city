@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:medical_city/app/router/navigation_routes.dart';
 import 'package:medical_city/features/main/presentation/widgets/dector_card.dart';
 import 'package:medical_city/features/main/presentation/widgets/service_card.dart';
 
@@ -144,7 +146,7 @@ class MainScreen extends StatelessWidget {
             ),
             IconButton(
               color: Colors.white,
-              onPressed: () {},
+              onPressed: () => context.push(NavigationRoutes.profile),
               icon: Icon(Icons.person_outline),
             ),
             IconButton(

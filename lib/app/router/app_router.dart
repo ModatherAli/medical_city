@@ -2,6 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:medical_city/features/auth/presentation/auth/auth.dart';
 import 'package:medical_city/features/auth/presentation/intro/intro_screen.dart';
 import 'package:medical_city/features/main/presentation/main_screen.dart';
+import 'package:medical_city/features/profile/presentation/screens/profile_screen.dart';
+import 'package:medical_city/features/profile/presentation/screens/settings_screen.dart';
 
 import '../../features/redirect/redirect_screen.dart';
 import 'navigation_routes.dart';
@@ -47,6 +49,14 @@ final appRouter = GoRouter(
     GoRoute(
       path: NavigationRoutes.main,
       builder: (context, state) => MainScreen(),
+    ),
+    GoRoute(
+      path: NavigationRoutes.profile,
+      builder: (context, state) => const ProfileScreen(),
+    ),
+    GoRoute(
+      path: NavigationRoutes.settings,
+      builder: (context, state) => const SettingsScreen(),
     ),
     // GoRoute(
     //   path: NavigationRoutes.subscription,

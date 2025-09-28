@@ -16,7 +16,12 @@ class AuthRemoteDatasource {
     return safeAPiCall(() async {
       User? user = _firebaseAuth.currentUser;
       if (user != null) {
-        return AuthModel(id: user.uid);
+        return AuthModel(
+          id: user.uid,
+          name: user.displayName,
+          email: user.email,
+          phone: user.phoneNumber,
+        );
       }
       return null;
     }, showLoading: false);
@@ -43,6 +48,9 @@ class AuthRemoteDatasource {
       }
       return AuthModel(
         id: _firebaseAuth.currentUser!.uid,
+        name: _firebaseAuth.currentUser!.displayName,
+        email: _firebaseAuth.currentUser!.email,
+        phone: _firebaseAuth.currentUser!.phoneNumber,
         // createdAt: _firebaseAuth.currentUser!.metadata.creationTime!.toString(),
       );
     }, showLoading: true);
@@ -67,6 +75,9 @@ class AuthRemoteDatasource {
       }
       return AuthModel(
         id: _firebaseAuth.currentUser!.uid,
+        name: _firebaseAuth.currentUser!.displayName,
+        email: _firebaseAuth.currentUser!.email,
+        phone: _firebaseAuth.currentUser!.phoneNumber,
         // createdAt: _firebaseAuth.currentUser!.metadata.creationTime!.toString(),
       );
     }, showLoading: true);
@@ -147,7 +158,12 @@ class AuthRemoteDatasource {
 
         final UserCredential userCredential = await _firebaseAuth
             .signInWithCredential(credential);
-        return AuthModel(id: userCredential.user!.uid);
+        return AuthModel(
+          id: userCredential.user!.uid,
+          name: userCredential.user!.displayName,
+          email: userCredential.user!.email,
+          phone: userCredential.user!.phoneNumber,
+        );
       } on FirebaseAuthException catch (e) {
         throw FirebaseAuthException(code: e.code, message: e.message);
       }

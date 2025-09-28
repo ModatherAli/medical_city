@@ -6,6 +6,8 @@ class NavigationRoutes {
   static const String restPassword = "/resetPassword";
   static const String phoneVerification = "/phoneVerification";
   static const String main = "/main";
+  static const String profile = "/profile";
+  static const String settings = "/settings";
   static const String subscription = "/subscription";
   static const String editAccount = "/editAccount";
   static const String addStock = "/addStock";
