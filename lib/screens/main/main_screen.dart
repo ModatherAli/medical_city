@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:medical_city/app/router/navigation_routes.dart';
-import 'package:medical_city/screens/widgets/dector_card.dart';
-import 'package:medical_city/screens/widgets/service_card.dart';
+import 'package:medical_city/screens/main/widgets/dector_card.dart';
+import 'package:medical_city/screens/main/widgets/service_card.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -119,41 +117,6 @@ class MainScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 50),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Card(
-        margin: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
-
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.0),
-        ),
-        elevation: 5,
-        color: Colors.blue[700],
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            IconButton(
-              color: Colors.white,
-              onPressed: () {},
-              icon: Icon(Icons.home_outlined),
-            ),
-            IconButton(
-              color: Colors.white,
-              onPressed: () {},
-              icon: Icon(Icons.chat_bubble_outline),
-            ),
-            IconButton(
-              color: Colors.white,
-              onPressed: () => context.push(NavigationRoutes.profile),
-              icon: Icon(Icons.person_outline),
-            ),
-            IconButton(
-              color: Colors.white,
-              onPressed: () {},
-              icon: Icon(Icons.calendar_month_outlined),
-            ),
           ],
         ),
       ),

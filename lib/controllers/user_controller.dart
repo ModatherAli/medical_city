@@ -6,14 +6,8 @@ import 'package:medical_city/models/user_model.dart';
 import 'package:medical_city/services/firebase/firebase.dart';
 
 class UserController extends GetxController {
-  UserModel? currentUser;
+  UserModel? currentUser = UserModel.empty();
   String? _verificationId;
-
-  @override
-  void onInit() {
-    super.onInit();
-    getUserData();
-  }
 
   Future<void> getUserData() async {
     User? user = FirebaseAuth.instance.currentUser;

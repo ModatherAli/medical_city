@@ -23,6 +23,23 @@ class UserModel {
     required this.birthDate,
   });
 
+  // Factory constructor to generate an empty/default UserModel
+  factory UserModel.empty() {
+    final DateTime now = DateTime.now();
+    return UserModel(
+      id: '',
+      name: '',
+      email: '',
+      phone: '',
+      imageUrl: '',
+      isAdmin: false,
+      isActive: false,
+      token: '',
+      joinAt: now,
+      birthDate: now,
+    );
+  }
+
   // Convert UserModel to Map for JSON serialization
   Map<String, dynamic> toMap() {
     return {
