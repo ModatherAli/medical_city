@@ -37,7 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _name.text = _currentUser.name;
     _email.text = _currentUser.email;
     _birthDate = _currentUser.birthDate;
-    _phone.text = _currentUser.phone;
+    _phone.text = FirebaseAuth.instance.currentUser!.phoneNumber ?? '';
   }
 
   @override

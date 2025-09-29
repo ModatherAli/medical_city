@@ -17,7 +17,7 @@ class UserModel {
     required this.phone,
     required this.imageUrl,
     this.isAdmin = false,
-    this.isActive = false,
+    this.isActive = true,
     this.token = "",
     required this.joinAt,
     required this.birthDate,

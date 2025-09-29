@@ -3,14 +3,20 @@ import 'package:flutter/material.dart';
 class ServiceCard extends StatelessWidget {
   final String icon;
   final String title;
-  const ServiceCard({super.key, required this.icon, required this.title});
+  final void Function()? onTap;
+  const ServiceCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         InkWell(
-          onTap: () {},
+          onTap: onTap,
           child: Card(
             elevation: 1,
             color: Color(0xFF5B9FBF),

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:medical_city/app/router/navigation_routes.dart';
+import 'package:medical_city/controllers/controllers.dart';
 import 'package:medical_city/screens/main/widgets/dector_card.dart';
 import 'package:medical_city/screens/main/widgets/service_card.dart';
 
@@ -7,6 +11,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = Get.find<UserController>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -103,17 +108,21 @@ class MainScreen extends StatelessWidget {
             // E-services Grid
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ServiceCard(icon: 'assets/icons/Book.png', title: 'Book'),
                 ServiceCard(
                   icon: 'assets/icons/VirtualCare.png',
                   title: 'Virtual Care',
                 ),
-                ServiceCard(
-                  icon: 'assets/icons/DoctorManagement.png',
-                  title: 'Doctor\nManagement',
-                ),
+                if (userController.currentUser.isAdmin)
+                  ServiceCard(
+                    onTap: () {
+                      context.push(NavigationRoutes.medicalManagement);
+                    },
+                    icon: 'assets/icons/DoctorManagement.png',
+                    title: 'Medical\nManagement',
+                  ),
               ],
             ),
             SizedBox(height: 50),

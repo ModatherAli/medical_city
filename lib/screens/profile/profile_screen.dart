@@ -113,7 +113,7 @@ class ProfileScreen extends StatelessWidget {
                               onPressed: () async {
                                 await authController.logout();
                                 Navigator.of(context).pop();
-                                context.go(NavigationRoutes.login);
+                                context.go(NavigationRoutes.intro);
                               },
                             ),
                           ],

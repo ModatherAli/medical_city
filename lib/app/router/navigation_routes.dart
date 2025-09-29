@@ -15,4 +15,5 @@ class NavigationRoutes {
   static const String notifications = "/notifications";
   static const String notificationSettings = "/notificationSettings";
   static const String bottomNavBar = "/bottomNavBar";
+  static const String medicalManagement = "/medicalManagement";
 }
