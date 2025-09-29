@@ -60,7 +60,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (_authController.user != null) {
+      if (_authController.currentUser != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           context.go(NavigationRoutes.main);
         });

@@ -29,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (_authController.user != null && _phoneNumber.text.isEmpty) {
+      if (_authController.currentUser != null && _phoneNumber.text.isEmpty) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           context.go(NavigationRoutes.main);
         });
@@ -179,7 +179,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _password.text,
       _fullName.text.trim(),
     );
-    if (_authController.user != null && _phoneNumber.text.isNotEmpty) {
+    if (_authController.currentUser != null && _phoneNumber.text.isNotEmpty) {
       await _authController.verifyPhoneNumber(_phoneNumber.text.trim());
     }
   }

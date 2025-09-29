@@ -1,117 +1,126 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:medical_city/controllers/paths.dart';
 import 'package:medical_city/models/user_model.dart';
-import 'package:medical_city/services/auth_service.dart';
+import 'package:medical_city/services/firebase/firebase.dart';
 
 class AuthController extends GetxController {
-  final AuthService _authService = AuthService();
+ 
+  UserModel? currentUser;
 
-  final Rx<UserModel?> _user = Rx<UserModel?>(null);
-  UserModel? get user => _user.value;
-
-  final RxBool isLoading = false.obs;
-  final RxString errorMessage = ''.obs;
-  final RxString verificationId = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    checkAuthStatus();
+    getUserData();
   }
 
-  Future<void> checkAuthStatus() async {
-    isLoading.value = true;
-    final result = await _authService.checkAuthStatus();
-    result.fold(
-      (failure) {
-        errorMessage.value = failure.message;
-        _user.value = null;
-      },
-      (userModel) {
-        _user.value = userModel;
-      },
-    );
-    isLoading.value = false;
+  Future<void> getUserData() async {
+    await EasyLoading.show(status: 'In Progress...'.tr);
+
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      currentUser = null;
+    } else {
+      Map<String, dynamic> userData = await FireDatabase.getItemData(
+        collectionPath1: FirebaseCollections.users,
+        id: user.uid,
+      );
+      currentUser = UserModel.fromMap(userData);
+    }
+    update();
   }
 
-  Future<void> signUpWithEmail(String email, String password, String name) async {
-    isLoading.value = true;
-    errorMessage.value = '';
-    final result = await _authService.signUpWithEmail(
+  Future<void> signUpWithEmail(
+    String email,
+    String password,
+    UserModel user,
+  ) async {
+    await EasyLoading.show(status: 'In Progress...'.tr);
+
+    bool result = await FireAuth.registerWithEmail(
       email: email,
       password: password,
-      name: name,
     );
-    result.fold(
-      (failure) {
-        errorMessage.value = failure.message;
-        _user.value = null;
-      },
-      (userModel) {
-        _user.value = userModel;
-      },
-    );
-    isLoading.value = false;
+    if (result) {
+      await FireDatabase.saveItemData(
+        user,
+        collectionPath1: FirebaseCollections.users,
+      );
+      currentUser = user;
+      await EasyLoading.dismiss();
+    } else {
+      await EasyLoading.showError(
+        'An error occurred!',
+        dismissOnTap: true,
+        duration: const Duration(seconds: 5),
+      );
+    }
+    update();
   }
 
   Future<void> signInWithEmail(String email, String password) async {
-    isLoading.value = true;
-    errorMessage.value = '';
-    final result = await _authService.signInWithEmail(
+    await EasyLoading.show(status: 'In Progress...'.tr);
+
+    bool result = await FireAuth.registerWithEmail(
       email: email,
       password: password,
     );
-    result.fold(
-      (failure) {
-        errorMessage.value = failure.message;
-        _user.value = null;
-      },
-      (userModel) {
-        _user.value = userModel;
-      },
-    );
-    isLoading.value = false;
+    if (result) {
+      var userData = await FireDatabase.getItemData(
+        collectionPath1: FirebaseCollections.users,
+        id: FirebaseAuth.instance.currentUser!.uid,
+      );
+      currentUser = UserModel.fromMap(userData);
+      await EasyLoading.dismiss();
+    } else {
+      await EasyLoading.showError(
+        'An error occurred!',
+        dismissOnTap: true,
+        duration: const Duration(seconds: 5),
+      );
+    }
+    update();
   }
 
   Future<void> resetPassword(String email) async {
-    isLoading.value = true;
-    await _authService.resetPassword(email: email);
-    isLoading.value = false;
+    await EasyLoading.show(status: 'In Progress...'.tr);
+
+    await FireAuth.resetPassword(email: email);
+    await EasyLoading.dismiss();
   }
 
   Future<void> logout() async {
-    isLoading.value = true;
-    await _authService.logout();
-    _user.value = null;
-    isLoading.value = false;
+    await EasyLoading.show(status: 'In Progress...'.tr);
+    await FireAuth.logOut();
+    currentUser = null;
+    await EasyLoading.dismiss();
   }
 
   Future<void> verifyPhoneNumber(String phoneNumber) async {
-    isLoading.value = true;
-    errorMessage.value = '';
-    final result = await _authService.verifyPhoneNumber(phoneNumber);
-    result.fold(
-      (failure) {
-        errorMessage.value = failure.message;
-      },
-      (id) {
-        verificationId.value = id;
-      },
-    );
-    isLoading.value = false;
+    // await EasyLoading.show(status: 'In Progress...'.tr);
+    // errorMessage.value = '';
+    // final result = await FireAuth.verifyPhoneNumber(phoneNumber);
+
+    // await EasyLoading.dismiss();
   }
 
   Future<void> verifyPhoneCode(String smsCode) async {
-    isLoading.value = true;
-    errorMessage.value = '';
-    final result = await _authService.verifyPhoneCode(verificationId.value, smsCode);
-    result.fold(
-      (failure) {
-        errorMessage.value = failure.message;
-      },
-      (userModel) {
-        _user.value = userModel;
-      },
-    );
-    isLoading.value = false;
+    // await EasyLoading.show(status: 'In Progress...'.tr);
+    // errorMessage.value = '';
+    // final result = await FireAuth.verifyPhoneCode(
+    //   verificationId.value,
+    //   smsCode,
+    // );
+    // result.fold(
+    //   (failure) {
+    //     errorMessage.value = failure.message;
+    //   },
+    //   (userModel) {
+    //     _user.value = userModel;
+    //   },
+    // );
+    // isLoading = false;
   }
 }

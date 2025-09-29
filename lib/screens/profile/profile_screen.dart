@@ -19,10 +19,7 @@ class ProfileScreen extends StatelessWidget {
             icon: const Icon(Icons.notifications_none),
             onPressed: () {},
           ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {},
-          ),
+          IconButton(icon: const Icon(Icons.settings), onPressed: () {}),
         ],
       ),
       body: Obx(() {
@@ -30,21 +27,19 @@ class ProfileScreen extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (authController.user == null) {
+        if (authController.currentUser == null) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             context.go(NavigationRoutes.login);
           });
           return const Center(child: CircularProgressIndicator());
         }
 
-        final user = authController.user!;
+        final user = authController.currentUser!;
         return SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(height: 20),
-              const CircleAvatar(
-                radius: 50,
-              ),
+              const CircleAvatar(radius: 50),
               const SizedBox(height: 10),
               Text(
                 user.name ?? 'No Name',
@@ -56,10 +51,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 5),
               Text(
                 user.phone ?? 'No Phone Number',
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 20),
               ListTile(
@@ -107,8 +99,9 @@ class ProfileScreen extends StatelessWidget {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text('Logout'),
-                        content:
-                            const Text('are you sure you want to log out?'),
+                        content: const Text(
+                          'are you sure you want to log out?',
+                        ),
                         actions: [
                           TextButton(
                             child: const Text('Cancel'),

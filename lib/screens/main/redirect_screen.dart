@@ -13,20 +13,16 @@ class RedirectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       if (authController.isLoading.value) {
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
       } else {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (authController.user != null) {
+          if (authController.currentUser != null) {
             context.go(NavigationRoutes.main);
           } else {
             context.go(NavigationRoutes.login);
           }
         });
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
       }
     });
   }
