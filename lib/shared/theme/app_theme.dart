@@ -11,7 +11,7 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
-  fontFamily: 'Almarai',
+  fontFamily: 'Rubik',
   useMaterial3: true,
   primarySwatch: Constants.primaryColor,
   // cardColor: Constants.darkColor,

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medical_city/app/router/navigation_routes.dart';
 import 'package:medical_city/controllers/user_controller.dart';
+import 'package:medical_city/screens/widgets/app_icon_widget.dart';
 import 'package:medical_city/screens/widgets/beauty_text_field.dart';
 
 class PhoneInputScreen extends StatefulWidget {
@@ -31,7 +32,8 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
         child: ListView(
           padding: const EdgeInsets.all(15),
           children: [
-            const SizedBox(height: 60),
+            // SizedBox(height: 200),
+            AppIconWidget(size: 200),
             Center(
               child: Text(
                 'Enter your phone'.tr,
