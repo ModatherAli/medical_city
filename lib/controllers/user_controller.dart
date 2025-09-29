@@ -7,6 +7,7 @@ import 'package:medical_city/services/firebase/firebase.dart';
 
 class UserController extends GetxController {
   UserModel? currentUser;
+  String? _verificationId;
 
   @override
   void onInit() {
@@ -99,29 +100,88 @@ class UserController extends GetxController {
     await EasyLoading.dismiss();
   }
 
-  Future<void> verifyPhoneNumber(String phoneNumber) async {
-    // await EasyLoading.show(status: 'In Progress...'.tr);
-    // errorMessage.value = '';
-    // final result = await FireAuth.verifyPhoneNumber(phoneNumber);
-
-    // await EasyLoading.dismiss();
+  Future<String?> verifyPhoneNumber(String phoneNumber) async {
+    await EasyLoading.show(status: 'In Progress...'.tr);
+    try {
+      final verificationId = await FireAuth.startPhoneNumberVerification(
+        phoneNumber: phoneNumber,
+      );
+      _verificationId = verificationId;
+      await EasyLoading.dismiss();
+      return verificationId;
+    } catch (e) {
+      await EasyLoading.showError(
+        'An error occurred!',
+        dismissOnTap: true,
+        duration: const Duration(seconds: 5),
+      );
+      return null;
+    } finally {
+      update();
+    }
   }
 
-  Future<void> verifyPhoneCode(String smsCode) async {
-    // await EasyLoading.show(status: 'In Progress...'.tr);
-    // errorMessage.value = '';
-    // final result = await FireAuth.verifyPhoneCode(
-    //   verificationId.value,
-    //   smsCode,
-    // );
-    // result.fold(
-    //   (failure) {
-    //     errorMessage.value = failure.message;
-    //   },
-    //   (userModel) {
-    //     _user.value = userModel;
-    //   },
-    // );
-    // isLoading = false;
+  Future<bool> verifyPhoneCode(String smsCode) async {
+    if (_verificationId == null) return false;
+    await EasyLoading.show(status: 'In Progress...'.tr);
+    try {
+      final credential = await FireAuth.signInWithSmsCode(
+        verificationId: _verificationId!,
+        smsCode: smsCode,
+      );
+
+      // After sign-in, check if user exists in Firestore
+      final String uid = credential.user!.uid;
+      final exists = await FireDatabase.isExistsDocument(
+        collectionPath1: FirebaseCollections.users,
+        docPath: uid,
+      );
+      if (exists) {
+        final data = await FireDatabase.getItemData(
+          collectionPath1: FirebaseCollections.users,
+          id: uid,
+        );
+        currentUser = UserModel.fromMap(data);
+      } else {
+        currentUser = null; // Force UI to navigate to complete profile
+      }
+      await EasyLoading.dismiss();
+      return true;
+    } catch (e) {
+      await EasyLoading.showError(
+        'An error occurred!',
+        dismissOnTap: true,
+        duration: const Duration(seconds: 5),
+      );
+      return false;
+    } finally {
+      update();
+    }
+  }
+
+  Future<bool> saveCompletedProfile(UserModel user) async {
+    await EasyLoading.show(status: 'In Progress...'.tr);
+    try {
+      final String uid = FirebaseAuth.instance.currentUser!.uid;
+      final userWithId = user.copyWith(id: uid, phone: user.phone);
+      final saved = await FireDatabase.saveItemData(
+        userWithId,
+        collectionPath1: FirebaseCollections.users,
+      );
+      if (saved) {
+        currentUser = userWithId;
+      }
+      await EasyLoading.dismiss();
+      return saved;
+    } catch (e) {
+      await EasyLoading.showError(
+        'An error occurred!',
+        dismissOnTap: true,
+        duration: const Duration(seconds: 5),
+      );
+      return false;
+    } finally {
+      update();
+    }
   }
 }

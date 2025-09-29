@@ -13,7 +13,7 @@ class StartAuthButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       ),
-      onPressed: () => context.push(NavigationRoutes.signup),
+      onPressed: () => context.push(NavigationRoutes.phoneInput),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

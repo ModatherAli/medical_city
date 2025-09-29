@@ -1,5 +1,5 @@
 class UserModel {
- final   String id;
+  final String id;
   final String name;
   final String email;
   final String phone;
@@ -38,6 +38,9 @@ class UserModel {
       'birthDate': birthDate.toIso8601String(),
     };
   }
+
+  // For Firestore helper compatibility
+  Map<String, dynamic> toJson() => toMap();
 
   // Create UserModel from Map (JSON deserialization)
   factory UserModel.fromMap(Map<String, dynamic> map) {

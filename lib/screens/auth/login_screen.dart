@@ -5,7 +5,6 @@ import 'package:medical_city/app/router/navigation_routes.dart';
 import 'package:medical_city/controllers/user_controller.dart';
 import 'package:medical_city/screens/widgets/app_icon_widget.dart';
 import 'package:medical_city/screens/widgets/beauty_text_field.dart';
-import 'package:medical_city/screens/widgets/other_auth_icon_buttons.dart';
 import 'package:medical_city/shared/validators/form_validators.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -99,9 +98,9 @@ class _LogInScreenState extends State<LogInScreen> {
                   },
                   child: Text('Forgot your password?'.tr),
                 ),
-                const SizedBox(height: 20),
-                OtherAuthIconButtons(),
-                const SizedBox(height: 20),
+                // const SizedBox(height: 20),
+                // OtherAuthIconButtons(),
+                // const SizedBox(height: 20),
               ],
             ),
           ),

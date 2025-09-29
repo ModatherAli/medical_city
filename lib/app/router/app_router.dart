@@ -1,10 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:medical_city/screens/auth/intro_screen.dart';
 import 'package:medical_city/screens/auth/login_screen.dart';
+import 'package:medical_city/screens/auth/phone_input_screen.dart';
 import 'package:medical_city/screens/auth/phone_verification_screen.dart';
 import 'package:medical_city/screens/auth/signup_screen.dart';
 import 'package:medical_city/screens/main/main_screen.dart';
 import 'package:medical_city/screens/main/redirect_screen.dart';
+import 'package:medical_city/screens/profile/complete_profile_screen.dart';
 import 'package:medical_city/screens/profile/profile_screen.dart';
 import 'package:medical_city/screens/profile/reset_password_screen.dart';
 import 'package:medical_city/screens/profile/settings_screen.dart';
@@ -21,6 +23,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: NavigationRoutes.intro,
       builder: (context, state) => IntroScreen(),
+    ),
+    GoRoute(
+      path: NavigationRoutes.phoneInput,
+      builder: (context, state) => const PhoneInputScreen(),
     ),
     GoRoute(
       path: NavigationRoutes.signup,
@@ -44,6 +50,13 @@ final appRouter = GoRouter(
           phoneNumber: phoneNumber,
           verificationId: verificationId,
         );
+      },
+    ),
+    GoRoute(
+      path: NavigationRoutes.completeProfile,
+      builder: (context, state) {
+        final phoneNumber = state.uri.queryParameters['phoneNumber'] ?? '';
+        return CompleteProfileScreen(phoneNumber: phoneNumber);
       },
     ),
     GoRoute(

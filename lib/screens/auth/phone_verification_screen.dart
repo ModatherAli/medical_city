@@ -59,61 +59,57 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (_authController.currentUser != null) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          context.go(NavigationRoutes.main);
-        });
-      }
-
-      return Scaffold(
-        appBar: AppBar(title: Text('Verify Phone Number'.tr)),
-        body: Form(
-          key: _formKey,
-          child: ListView(
-            padding: const EdgeInsets.all(15),
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              Text(
-                'Verification Code'.tr,
-                style: Theme.of(context).textTheme.titleLarge,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Please enter the 6-digit code sent to ${widget.phoneNumber}'
-                    .tr,
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 30),
-              BeautyTextField(
-                fieldName: 'Verification Code',
-                controller: _codeController,
-                validator: _codeValidator,
-                textInputType: TextInputType.number,
-                textDirection: TextDirection.ltr,
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: FilledButton(
-                  onPressed: _onVerifyCode,
-                  child: Text('Verify'.tr),
+    return GetBuilder<UserController>(
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(title: Text('Verify Phone Number'.tr)),
+          body: Form(
+            key: _formKey,
+            child: ListView(
+              padding: const EdgeInsets.all(15),
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                Text(
+                  'Verification Code'.tr,
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              const SizedBox(height: 20),
-              TextButton(
-                onPressed: _countdown > 0 ? null : _onResendCode,
-                child: _countdown > 0
-                    ? Text('Resend Code in $_countdown seconds'.tr)
-                    : Text('Resend Code'.tr),
-              ),
-            ],
+                const SizedBox(height: 10),
+                Text(
+                  'Please enter the 6-digit code sent to ${widget.phoneNumber}'
+                      .tr,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 30),
+                BeautyTextField(
+                  fieldName: 'Verification Code',
+                  controller: _codeController,
+                  validator: _codeValidator,
+                  textInputType: TextInputType.number,
+                  textDirection: TextDirection.ltr,
+                ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: FilledButton(
+                    onPressed: _onVerifyCode,
+                    child: Text('Verify'.tr),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextButton(
+                  onPressed: _countdown > 0 ? null : _onResendCode,
+                  child: _countdown > 0
+                      ? Text('Resend Code in $_countdown seconds'.tr)
+                      : Text('Resend Code'.tr),
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
   String? _codeValidator(String? value) {
@@ -130,7 +126,17 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    await _authController.verifyPhoneCode(_codeController.text);
+    final ok = await _authController.verifyPhoneCode(_codeController.text);
+    if (!mounted) return;
+    if (ok) {
+      if (_authController.currentUser == null) {
+        context.go(
+          '${NavigationRoutes.completeProfile}?phoneNumber=${Uri.encodeComponent(widget.phoneNumber)}',
+        );
+      } else {
+        context.go(NavigationRoutes.main);
+      }
+    }
   }
 
   void _onResendCode() {

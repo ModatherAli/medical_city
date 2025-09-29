@@ -42,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
               const CircleAvatar(radius: 50),
               const SizedBox(height: 10),
               Text(
-                user.name ?? 'No Name',
+                user.name,
                 style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                user.phone ?? 'No Phone Number',
+                user.phone,
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 20),

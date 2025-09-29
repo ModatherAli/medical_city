@@ -73,4 +73,50 @@ class FireAuth {
       return false;
     }
   }
+
+  // PHONE AUTH
+  static Future<String> startPhoneNumberVerification({
+    required String phoneNumber,
+    Duration timeout = const Duration(seconds: 60),
+  }) async {
+    final completer = Completer<String>();
+    try {
+      await _firebaseAuth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        timeout: timeout,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          try {
+            await _firebaseAuth.signInWithCredential(credential);
+            // On Android, auto-retrieval may complete without explicit code entry
+            completer.complete(credential.verificationId ?? '');
+          } catch (e) {
+            if (!completer.isCompleted) completer.completeError(e);
+          }
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          if (!completer.isCompleted) completer.completeError(e);
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          if (!completer.isCompleted) completer.complete(verificationId);
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          // No-op; user can request resend
+        },
+      );
+    } catch (e) {
+      if (!completer.isCompleted) completer.completeError(e);
+    }
+    return completer.future;
+  }
+
+  static Future<UserCredential> signInWithSmsCode({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: smsCode,
+    );
+    return _firebaseAuth.signInWithCredential(credential);
+  }
 }
