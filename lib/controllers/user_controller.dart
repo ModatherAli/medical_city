@@ -155,17 +155,15 @@ class UserController extends GetxController {
     }
   }
 
-  Future<bool> saveCompletedProfile(UserModel user) async {
+  Future<bool> saveUserData(UserModel user) async {
     await EasyLoading.show(status: 'In Progress...'.tr);
     try {
-      final String uid = FirebaseAuth.instance.currentUser!.uid;
-      final userWithId = user.copyWith(id: uid, phone: user.phone);
       final saved = await FireDatabase.saveItemData(
-        userWithId,
+        user,
         collectionPath1: FirebaseCollections.users,
       );
       if (saved) {
-        currentUser = userWithId;
+        currentUser = user;
       }
       await EasyLoading.dismiss();
       return saved;

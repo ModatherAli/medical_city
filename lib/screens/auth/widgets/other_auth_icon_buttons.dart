@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:medical_city/shared/res/images_paths.dart';
-
-import '../../../../../app/router/navigation_routes.dart';
 
 class OtherAuthIconButtons extends StatelessWidget {
   const OtherAuthIconButtons({super.key});
@@ -32,7 +29,7 @@ class OtherAuthIconButtons extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                context.go(NavigationRoutes.main);
+                // context.go(NavigationRoutes.main);
               },
               icon: Card(
                 shape: RoundedRectangleBorder(
@@ -54,7 +51,7 @@ class OtherAuthIconButtons extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                context.go(NavigationRoutes.main);
+                // context.go(NavigationRoutes.main);
               },
               icon: Card(child: Icon(Icons.face, size: 50)),
             ),

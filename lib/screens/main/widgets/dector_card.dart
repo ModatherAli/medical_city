@@ -9,7 +9,7 @@ class DectorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<UserController>(
       builder: (userController) {
-        var user = userController.currentUser!;
+        var user = userController.currentUser;
         return Card(
           color: Colors.blue[100],
           elevation: 0.5,
@@ -41,14 +41,22 @@ class DectorCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'ID #: 4905503',
+                Text(
+                  'Phone:',
                   style: TextStyle(fontSize: 14, color: Colors.black54),
                 ),
+                Text(
+                  user.phone,
+                  style: TextStyle(fontSize: 14, color: Colors.black),
+                ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Xxxx',
+                Text(
+                  'Member since:',
                   style: TextStyle(fontSize: 14, color: Colors.black54),
+                ),
+                Text(
+                  MaterialLocalizations.of(context).formatFullDate(user.joinAt),
+                  style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               ],
             ),

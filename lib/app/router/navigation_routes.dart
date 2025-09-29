@@ -12,13 +12,6 @@ class NavigationRoutes {
   static const String settings = "/settings";
   static const String subscription = "/subscription";
   static const String editAccount = "/editAccount";
-  static const String addStock = "/addStock";
-  static const String editStock = "/editStock";
-  static const String addOption = "/addOption";
-  static const String editOption = "/editOption";
-  static const String options = "/options";
-  static const String archive = "/archive";
-  static const String chat = "/chat";
-  static const String conversations = "/conversations";
   static const String notifications = "/notifications";
+  static const String bottomNavBar = "/bottomNavBar";
 }

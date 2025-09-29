@@ -58,6 +58,8 @@ dependencies:
   shared_preferences: ^2.5.3
   permission_handler: ^12.0.1
   pinput: ^5.0.2
+  firebase_storage: ^13.0.2
+  image_picker: ^1.1.2
   
 
 dev_dependencies:
@@ -97,3 +99,4 @@ flutter:
         - asset: assets/fonts/Rubik-Light.ttf
         - asset: assets/fonts/Rubik-Medium.ttf
         - asset: assets/fonts/Rubik-Regular.ttf
+

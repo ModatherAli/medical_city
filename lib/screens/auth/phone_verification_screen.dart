@@ -136,20 +136,13 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
     final ok = await _authController.verifyPhoneCode(_codeController.text);
     if (!mounted) return;
     if (ok) {
-      if (_authController.currentUser.name.isEmpty) {
-        context.go(
-          '${NavigationRoutes.completeProfile}?phoneNumber=${Uri.encodeComponent(widget.phoneNumber)}',
-        );
-      } else {
-        context.go(NavigationRoutes.main);
-      }
+      context.go(NavigationRoutes.redirect);
     }
   }
 
   void _onResendCode() {
-    setState(() {
-      _countdown = 60;
-    });
+    _countdown = 60;
+    setState(() {});
     _startCountdown();
     _authController.verifyPhoneNumber(widget.phoneNumber);
   }
