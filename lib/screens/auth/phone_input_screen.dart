@@ -70,6 +70,9 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
   }
 
   Future<void> _onStartVerification() async {
+    // context.push(
+    //   '${NavigationRoutes.phoneVerification}?phoneNumber=+123456789&verificationId=id',
+    // );
     if (!_formKey.currentState!.validate()) return;
     final phone = _phoneController.text.trim();
     final controller = Get.find<UserController>();

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medical_city/app/router/navigation_routes.dart';
 import 'package:medical_city/controllers/user_controller.dart';
-import 'package:medical_city/screens/widgets/beauty_text_field.dart';
+import 'package:pinput/pinput.dart';
 
 class PhoneVerificationScreen extends StatefulWidget {
   final String phoneNumber;
@@ -76,18 +76,25 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Please enter the 6-digit code sent to ${widget.phoneNumber}'
+                  'Please enter the 6-digit code sent to \n+${widget.phoneNumber}'
                       .tr,
                   style: Theme.of(context).textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30),
-                BeautyTextField(
-                  fieldName: 'Verification Code',
-                  controller: _codeController,
-                  validator: _codeValidator,
-                  textInputType: TextInputType.number,
-                  textDirection: TextDirection.ltr,
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+
+                  child: Pinput(
+                    validator: _codeValidator,
+
+                    controller: _codeController,
+                    onCompleted: (String value) async {
+                      _onVerifyCode();
+                    },
+                    length: 6,
+                  ),
                 ),
                 const SizedBox(height: 20),
                 Padding(
@@ -129,7 +136,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
     final ok = await _authController.verifyPhoneCode(_codeController.text);
     if (!mounted) return;
     if (ok) {
-      if (_authController.currentUser == null) {
+      if (_authController.currentUser.name.isEmpty) {
         context.go(
           '${NavigationRoutes.completeProfile}?phoneNumber=${Uri.encodeComponent(widget.phoneNumber)}',
         );

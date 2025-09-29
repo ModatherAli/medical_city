@@ -6,14 +6,13 @@ import 'package:medical_city/models/user_model.dart';
 import 'package:medical_city/services/firebase/firebase.dart';
 
 class UserController extends GetxController {
-  UserModel? currentUser = UserModel.empty();
+  UserModel currentUser = UserModel.empty();
   String? _verificationId;
 
   Future<void> getUserData() async {
+    if (currentUser.id.isNotEmpty) return;
     User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      currentUser = null;
-    } else {
+    if (user != null) {
       await EasyLoading.show(status: 'In Progress...'.tr);
 
       Map<String, dynamic> userData = await FireDatabase.getItemData(
@@ -21,8 +20,11 @@ class UserController extends GetxController {
         id: user.uid,
       );
       await EasyLoading.dismiss();
-
-      currentUser = UserModel.fromMap(userData);
+      if (userData.isNotEmpty) {
+        currentUser = UserModel.fromMap(userData);
+      } else {
+        currentUser = currentUser.copyWith(id: user.uid);
+      }
     }
     update();
   }
@@ -90,7 +92,7 @@ class UserController extends GetxController {
   Future<void> logout() async {
     await EasyLoading.show(status: 'In Progress...'.tr);
     await FireAuth.logOut();
-    currentUser = null;
+    currentUser = UserModel.empty();
     await EasyLoading.dismiss();
   }
 
@@ -137,7 +139,7 @@ class UserController extends GetxController {
         );
         currentUser = UserModel.fromMap(data);
       } else {
-        currentUser = null; // Force UI to navigate to complete profile
+        currentUser = UserModel.empty();
       }
       await EasyLoading.dismiss();
       return true;
