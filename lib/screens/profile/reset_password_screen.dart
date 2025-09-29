@@ -33,9 +33,7 @@ class ResetPasswordScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
               child: Obx(
-                () => _authController.isLoading.value
-                    ? const Center(child: CircularProgressIndicator())
-                    : OutlinedButton(
+                () =>  OutlinedButton(
                         onPressed: () => _onRestPassword(context),
                         child: Text('Password reset request'.tr),
                       ),

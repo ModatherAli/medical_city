@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_city/controllers/user_controller.dart';
+import 'package:medical_city/screens/auth/intro_screen.dart';
+import 'package:medical_city/screens/main/main_screen.dart';
 
 class RedirectScreen extends StatelessWidget {
   final UserController authController = Get.find();
@@ -9,8 +12,11 @@ class RedirectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    });
+    if ( FirebaseAuth.instance.currentUser == null) {
+      return const IntroScreen();
+    } else {
+      return const MainScreen();
+    }
+ 
   }
 }

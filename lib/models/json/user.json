@@ -6,5 +6,7 @@
     "imageUrl": "",
     "joinAt": "",
     "isAdmin": false,
+    "isActive": false,
+    "token": "",
     "birthDate": ""
 }

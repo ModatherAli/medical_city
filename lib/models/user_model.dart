@@ -5,6 +5,8 @@ class UserModel {
   final String phone;
   final String imageUrl;
   final bool isAdmin;
+  final bool isActive;
+  final String token;
   final DateTime joinAt;
   final DateTime birthDate;
 
@@ -15,6 +17,8 @@ class UserModel {
     required this.phone,
     required this.imageUrl,
     this.isAdmin = false,
+    this.isActive = false,
+    this.token = "",
     required this.joinAt,
     required this.birthDate,
   });
@@ -28,6 +32,8 @@ class UserModel {
       'phone': phone,
       'imageUrl': imageUrl,
       'isAdmin': isAdmin,
+      'isActive': isActive,
+      'token': token,
       'joinAt': joinAt.toIso8601String(),
       'birthDate': birthDate.toIso8601String(),
     };
@@ -42,6 +48,8 @@ class UserModel {
       phone: map['phone'],
       imageUrl: map['imageUrl'],
       isAdmin: map['isAdmin'] ?? false,
+      isActive: map['isActive'] ?? false,
+      token: map['token'] ?? '',
       joinAt: DateTime.parse(map['joinAt']),
       birthDate: DateTime.parse(map['birthDate']),
     );
@@ -55,6 +63,8 @@ class UserModel {
     String? phone,
     String? imageUrl,
     bool? isAdmin,
+    bool? isActive,
+    String? token,
     DateTime? joinAt,
     DateTime? birthDate,
   }) {
@@ -65,6 +75,8 @@ class UserModel {
       phone: phone ?? this.phone,
       imageUrl: imageUrl ?? this.imageUrl,
       isAdmin: isAdmin ?? this.isAdmin,
+      isActive: isActive ?? this.isActive,
+      token: token ?? this.token,
       joinAt: joinAt ?? this.joinAt,
       birthDate: birthDate ?? this.birthDate,
     );
@@ -72,6 +84,6 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel{id: $id, name: $name, email: $email, phone: $phone, imageUrl: $imageUrl, isAdmin: $isAdmin, joinAt: $joinAt, birthDate: $birthDate}';
+    return 'UserModel{id: $id, name: $name, email: $email, phone: $phone, imageUrl: $imageUrl, isAdmin: $isAdmin, isActive: $isActive, token: $token, joinAt: $joinAt, birthDate: $birthDate}';
   }
 }

@@ -23,9 +23,9 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
       body: Obx(() {
-        if (authController.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
+        // if (authController.isLoading.value) {
+        //   return const Center(child: CircularProgressIndicator());
+        // }
 
         if (authController.currentUser == null) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
