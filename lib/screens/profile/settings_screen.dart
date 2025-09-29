@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:medical_city/app/router/navigation_routes.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -6,16 +8,16 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
+      appBar: AppBar(title: const Text('Settings')),
       body: ListView(
         children: [
           ListTile(
             leading: const Icon(Icons.lightbulb_outline),
             title: const Text('Notification Setting'),
             trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+              context.push(NavigationRoutes.notificationSettings);
+            },
           ),
           ListTile(
             leading: const Icon(Icons.lock_outline),

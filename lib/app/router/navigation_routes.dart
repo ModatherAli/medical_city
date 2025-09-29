@@ -13,5 +13,6 @@ class NavigationRoutes {
   static const String subscription = "/subscription";
   static const String editAccount = "/editAccount";
   static const String notifications = "/notifications";
+  static const String notificationSettings = "/notificationSettings";
   static const String bottomNavBar = "/bottomNavBar";
 }

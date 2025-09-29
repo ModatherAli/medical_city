@@ -23,7 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.blue[700],
+        backgroundColor: Color(0xFF5B9FBF),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         showUnselectedLabels: false,

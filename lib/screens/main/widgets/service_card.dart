@@ -13,7 +13,7 @@ class ServiceCard extends StatelessWidget {
           onTap: () {},
           child: Card(
             elevation: 1,
-            color: Colors.blue[700],
+            color: Color(0xFF5B9FBF),
             child: Container(
               height: 60,
               width: 60,

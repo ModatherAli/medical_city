@@ -13,11 +13,11 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('My Profile'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_none),
-            onPressed: () {},
-          ),
-          IconButton(icon: const Icon(Icons.settings), onPressed: () {}),
+          // IconButton(
+          //   icon: const Icon(Icons.notifications_none),
+          //   onPressed: () {},
+          // ),
+          // IconButton(icon: const Icon(Icons.settings), onPressed: () {}),
         ],
       ),
       body: GetBuilder<UserController>(
