@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medical_city/app/router/navigation_routes.dart';
-import 'package:medical_city/controllers/auth_controller.dart';
+import 'package:medical_city/controllers/user_controller.dart';
 import 'package:medical_city/screens/widgets/app_icon_widget.dart';
 import 'package:medical_city/screens/widgets/beauty_text_field.dart';
 import 'package:medical_city/screens/widgets/other_auth_icon_buttons.dart';
@@ -20,109 +20,93 @@ class _LogInScreenState extends State<LogInScreen> {
   final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
   final _password = TextEditingController();
-  final AuthController _authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (_authController.currentUser != null) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          context.go(NavigationRoutes.main);
-        });
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
-      }
-
-      return Scaffold(
-        appBar: AppBar(),
-        body: Form(
-          key: _formKey,
-          child: ListView(
-            padding: const EdgeInsets.all(15),
-            children: [
-              const Center(child: AppIconWidget()),
-              Center(
-                child: Text(
-                  'Log In'.tr,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
-              const SizedBox(height: 15),
-              BeautyTextField(
-                fieldName: 'Email',
-                controller: _email,
-                validator: emailValidator,
-                textDirection: TextDirection.ltr,
-                textInputType: TextInputType.emailAddress,
-              ),
-              BeautyTextField(
-                fieldName: 'Password',
-                controller: _password,
-                obscureText: _hidePassword,
-                validator: passwordValidatorFactory(),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _hidePassword = !_hidePassword;
-                    });
-                  },
-                  icon: Icon(
-                    _hidePassword ? Icons.visibility : Icons.visibility_off,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: _authController.isLoading.value
-                    ? const Center(child: CircularProgressIndicator())
-                    : OutlinedButton(
-                        onPressed: _onLogIn,
-                        child: Text('Log In'.tr),
-                      ),
-              ),
-              if (_authController.errorMessage.value.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+    return GetBuilder<UserController>(
+      builder: (authController) {
+        return Scaffold(
+          appBar: AppBar(),
+          body: Form(
+            key: _formKey,
+            child: ListView(
+              padding: const EdgeInsets.all(15),
+              children: [
+                const Center(child: AppIconWidget()),
+                Center(
                   child: Text(
-                    _authController.errorMessage.value,
-                    style: const TextStyle(color: Colors.red),
-                    textAlign: TextAlign.center,
+                    'Log In'.tr,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('New here?'.tr),
-                  TextButton(
+                const SizedBox(height: 15),
+                BeautyTextField(
+                  fieldName: 'Email',
+                  controller: _email,
+                  validator: emailValidator,
+                  textDirection: TextDirection.ltr,
+                  textInputType: TextInputType.emailAddress,
+                ),
+                BeautyTextField(
+                  fieldName: 'Password',
+                  controller: _password,
+                  obscureText: _hidePassword,
+                  validator: passwordValidatorFactory(),
+                  suffixIcon: IconButton(
                     onPressed: () {
-                      context.pushReplacement(NavigationRoutes.signup);
+                      setState(() {
+                        _hidePassword = !_hidePassword;
+                      });
                     },
-                    child: Text('Open account'.tr),
+                    icon: Icon(
+                      _hidePassword ? Icons.visibility : Icons.visibility_off,
+                    ),
                   ),
-                ],
-              ),
-              TextButton(
-                onPressed: () {
-                  context.push(NavigationRoutes.restPassword);
-                },
-                child: Text('Forgot your password?'.tr),
-              ),
-              const SizedBox(height: 20),
-              OtherAuthIconButtons(),
-              const SizedBox(height: 20),
-            ],
-          ),
-        ),
-      );
-    });
-  }
+                ),
+                const SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: OutlinedButton(
+                    onPressed: () async {
+                      if (!_formKey.currentState!.validate()) {
+                        return;
+                      }
+                      await authController.signInWithEmail(
+                        _email.text.trim(),
+                        _password.text,
+                      );
+                    },
+                    child: Text('Log In'.tr),
+                  ),
+                ),
 
-  void _onLogIn() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    _authController.errorMessage.value = '';
-    await _authController.signInWithEmail(_email.text.trim(), _password.text);
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('New here?'.tr),
+                    TextButton(
+                      onPressed: () {
+                        context.pushReplacement(NavigationRoutes.signup);
+                      },
+                      child: Text('Open account'.tr),
+                    ),
+                  ],
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.push(NavigationRoutes.restPassword);
+                  },
+                  child: Text('Forgot your password?'.tr),
+                ),
+                const SizedBox(height: 20),
+                OtherAuthIconButtons(),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

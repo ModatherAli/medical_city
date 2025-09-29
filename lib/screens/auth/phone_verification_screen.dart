@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medical_city/app/router/navigation_routes.dart';
-import 'package:medical_city/controllers/auth_controller.dart';
+import 'package:medical_city/controllers/user_controller.dart';
 import 'package:medical_city/screens/widgets/beauty_text_field.dart';
 
 class PhoneVerificationScreen extends StatefulWidget {
@@ -27,13 +27,13 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
   final _codeController = TextEditingController();
   int _countdown = 60;
   late Timer _timer;
-  final AuthController _authController = Get.find();
+  final UserController _authController = Get.find();
 
   @override
   void initState() {
     super.initState();
     _startCountdown();
-    _authController.verificationId.value = widget.verificationId;
+    // _authController.verificationId.value = widget.verificationId;
   }
 
   void _startCountdown() {
@@ -97,24 +97,11 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
               const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: _authController.isLoading.value
-                    ? const Center(child: CircularProgressIndicator())
-                    : FilledButton(
-                        onPressed: _onVerifyCode,
-                        child: Text('Verify'.tr),
-                      ),
-              ),
-              if (_authController.errorMessage.value.isNotEmpty) ...[
-                const SizedBox(height: 20),
-                Text(
-                  _authController.errorMessage.value,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
+                child: FilledButton(
+                  onPressed: _onVerifyCode,
+                  child: Text('Verify'.tr),
                 ),
-              ],
+              ),
               const SizedBox(height: 20),
               TextButton(
                 onPressed: _countdown > 0 ? null : _onResendCode,

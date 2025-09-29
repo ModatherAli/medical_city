@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:medical_city/controllers/binding_controller.dart';
 
 import '../core/localization/app_translations.dart';
 import '../shared/theme/app_theme.dart';
@@ -17,6 +18,8 @@ class MedicalCityApp extends StatelessWidget {
       routerDelegate: appRouter.routerDelegate,
       routeInformationParser: appRouter.routeInformationParser,
       routeInformationProvider: appRouter.routeInformationProvider,
+      initialBinding: BindingController(),
+
       locale: Get.locale ?? const Locale('en', 'US'),
       fallbackLocale: const Locale('en', 'US'),
       translations: AppTranslations(),

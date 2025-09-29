@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medical_city/app/router/navigation_routes.dart';
-import 'package:medical_city/controllers/auth_controller.dart';
+import 'package:medical_city/controllers/user_controller.dart';
 import 'package:medical_city/screens/widgets/beauty_text_field.dart';
 import 'package:medical_city/shared/validators/form_validators.dart';
 
@@ -11,7 +11,7 @@ class ResetPasswordScreen extends StatelessWidget {
 
   final _email = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final AuthController _authController = Get.find();
+  final UserController _authController = Get.find();
 
   @override
   Widget build(BuildContext context) {

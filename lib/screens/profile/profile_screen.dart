@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medical_city/app/router/navigation_routes.dart';
-import 'package:medical_city/controllers/auth_controller.dart';
+import 'package:medical_city/controllers/user_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final AuthController authController = Get.find();
+    final UserController authController = Get.find();
 
     return Scaffold(
       appBar: AppBar(

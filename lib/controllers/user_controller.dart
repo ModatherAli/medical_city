@@ -5,10 +5,8 @@ import 'package:medical_city/controllers/paths.dart';
 import 'package:medical_city/models/user_model.dart';
 import 'package:medical_city/services/firebase/firebase.dart';
 
-class AuthController extends GetxController {
- 
+class UserController extends GetxController {
   UserModel? currentUser;
-
 
   @override
   void onInit() {
@@ -17,16 +15,18 @@ class AuthController extends GetxController {
   }
 
   Future<void> getUserData() async {
-    await EasyLoading.show(status: 'In Progress...'.tr);
-
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       currentUser = null;
     } else {
+      await EasyLoading.show(status: 'In Progress...'.tr);
+
       Map<String, dynamic> userData = await FireDatabase.getItemData(
         collectionPath1: FirebaseCollections.users,
         id: user.uid,
       );
+      await EasyLoading.dismiss();
+
       currentUser = UserModel.fromMap(userData);
     }
     update();
@@ -38,6 +38,7 @@ class AuthController extends GetxController {
     UserModel user,
   ) async {
     await EasyLoading.show(status: 'In Progress...'.tr);
+    user = user.copyWith(id: FirebaseAuth.instance.currentUser!.uid);
 
     bool result = await FireAuth.registerWithEmail(
       email: email,

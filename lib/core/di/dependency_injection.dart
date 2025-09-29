@@ -2,8 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
-import 'package:medical_city/controllers/auth_controller.dart';
 
 import '../../firebase_options.dart';
 
@@ -28,7 +26,4 @@ Future<void> configureDependencies() async {
 
   // Firebase initialization
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  // Initialize AuthController
-  Get.put(AuthController());
 }

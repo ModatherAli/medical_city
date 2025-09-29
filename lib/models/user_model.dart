@@ -1,5 +1,5 @@
 class UserModel {
-  final String id;
+ final   String id;
   final String name;
   final String email;
   final String phone;
@@ -44,6 +44,29 @@ class UserModel {
       isAdmin: map['isAdmin'] ?? false,
       joinAt: DateTime.parse(map['joinAt']),
       birthDate: DateTime.parse(map['birthDate']),
+    );
+  }
+
+  // Copy with method to create a new instance with updated fields
+  UserModel copyWith({
+    String? id,
+    String? name,
+    String? email,
+    String? phone,
+    String? imageUrl,
+    bool? isAdmin,
+    DateTime? joinAt,
+    DateTime? birthDate,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      imageUrl: imageUrl ?? this.imageUrl,
+      isAdmin: isAdmin ?? this.isAdmin,
+      joinAt: joinAt ?? this.joinAt,
+      birthDate: birthDate ?? this.birthDate,
     );
   }
 
